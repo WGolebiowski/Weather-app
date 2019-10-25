@@ -3,6 +3,7 @@ import "./Result.css";
 
 const Result = props => {
   const {
+    value,
     err,
     city,
     temp,
@@ -34,7 +35,7 @@ const Result = props => {
   }
 
   return (
-    <div className="result">{err ? `Nie mamy w bazie ${city}` : content}</div>
+    <div className="result">{err ? `Nie mamy w bazie ${value}` : content}</div>
   );
 };
 

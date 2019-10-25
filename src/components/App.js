@@ -24,48 +24,79 @@ class App extends Component {
     });
   };
 
-  handleCitySubmit = e => {
-    e.preventDefault();
-    const API = `http://api.openweathermap.org/data/2.5/weather?q=${this.state.value}&APPID=${APIKey}&units=metric`;
+  // handleCitySubmit = e => {
+  //   e.preventDefault();
+  //   const API = `http://api.openweathermap.org/data/2.5/weather?q=${this.state.value}&APPID=${APIKey}&units=metric`;
 
-    fetch(API)
-      .then(res => {
-        if (res.ok) {
-          return res;
-        }
-        throw Error("Lypa");
-      })
-      .then(response => response.json())
-      .then(data => {
-        console.log(data);
-        this.setState({
-          err: false,
-          date: new Date().toLocaleString(),
-          city: this.state.value,
-          sunrise: data.sys.sunrise,
-          sunset: data.sys.sunset,
-          temp: data.main.temp.toFixed(),
-          wind: data.wind.speed,
-          pressure: data.main.pressure
+  //   fetch(API)
+  //     .then(res => {
+  //       if (res.ok) {
+  //         return res;
+  //       }
+  //       throw Error("Lypa");
+  //     })
+  //     .then(response => response.json())
+  //     .then(data => {
+  //       console.log(data);
+  //       this.setState({
+  //         err: false,
+  //         date: new Date().toLocaleString(),
+  //         city: this.state.value,
+  //         sunrise: data.sys.sunrise,
+  //         sunset: data.sys.sunset,
+  //         temp: data.main.temp.toFixed(),
+  //         wind: data.wind.speed,
+  //         pressure: data.main.pressure
+  //       });
+  //     })
+  //     .catch(err => {
+  //       alert("City not found");
+  //       this.setState({
+  //         err: true,
+  //         value: ""
+  //       });
+  //     });
+  // };
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.value === 0) return;
+    if (prevState !== this.state.value) {
+      const API = `http://api.openweathermap.org/data/2.5/weather?q=${this.state.value}&APPID=${APIKey}&units=metric`;
+
+      fetch(API)
+        .then(res => {
+          if (res.ok) {
+            return res;
+          }
+          throw Error("Lypa");
+        })
+        .then(response => response.json())
+        .then(data => {
+          console.log(data);
+          this.setState({
+            err: false,
+            date: new Date().toLocaleString(),
+            city: this.state.value,
+            sunrise: data.sys.sunrise,
+            sunset: data.sys.sunset,
+            temp: data.main.temp.toFixed(),
+            wind: data.wind.speed,
+            pressure: data.main.pressure
+          });
+        })
+        .catch(err => {
+          this.setState({
+            err: true,
+            value: this.state.value
+          });
         });
-      })
-      .catch(err => {
-        alert("City not found");
-        this.setState({
-          err: true,
-          value: ""
-        });
-      });
-  };
+    }
+  }
 
   render() {
     return (
       <div className="App">
-        <Form
-          value={this.state.value}
-          change={this.handleInputChange}
-          submit={this.handleCitySubmit}
-        />
+        <Form value={this.state.value} change={this.handleInputChange} />
         <Result weather={this.state} />
       </div>
     );
