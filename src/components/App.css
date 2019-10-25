@@ -2,12 +2,21 @@ body {
   text-align: center;
 }
 
-.App {
-  margin-top: 100px;
-  display: inline-block;
+.App input,
+.App button {
+  margin: 30px;
+  padding: 10px;
+  border: 2px solid gray;
+  background-color: #fff;
+  transition: 0.3s;
+}
+
+.App button {
+  cursor: pointer;
+}
+
+.App button:hover {
+  background-color: #000;
+  color: white;
   border: 2px solid black;
-  padding: 20px 50px;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 30px;
-  font-weight: 600;
 }

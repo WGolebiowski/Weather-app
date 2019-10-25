@@ -1,4 +1,5 @@
 import React from "react";
+import "./Result.css";
 
 const Result = props => {
   const {
@@ -19,7 +20,9 @@ const Result = props => {
     const sunsetTime = new Date(sunset * 1000).toLocaleTimeString();
     content = (
       <div>
-        <h3>Wynik wyszukiwania dla miast {city}</h3>
+        <h3>
+          Wynik wyszukiwania dla miast <em>{city}</em>
+        </h3>
         <h4>Dane dla dnia i godziny: {date}</h4>
         <h4>Aktualna temperatura: {temp} °C</h4>
         <h4>Wschód słońca o: {sunriseTime}</h4>
